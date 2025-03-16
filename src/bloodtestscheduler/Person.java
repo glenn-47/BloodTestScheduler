@@ -22,6 +22,7 @@ public class Person implements Schedulable {
         this.age = age;
         this.fromHospitalWard = fromHospitalWard;
     }
+
     public String getName() {
         return name;
     }
