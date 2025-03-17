@@ -18,18 +18,23 @@ public class Scheduler {
     
     // ADT 3: Fixed-size queue to track last 5 no-shows.
     private final Deque<Person> noShowQueue = new ArrayDeque<>();
+    
+    // Maximum number of no-shows to store
     private static final int MAX_NO_SHOWS = 5;
-
+    
+    // Constructor initializes the PriorityQueue with a lambda expression comparator
     public Scheduler() {
         this.priorityQueue = new PriorityQueue<>((Person p1, Person p2) -> Integer.compare(p2.getPriorityScore(), p1.getPriorityScore()) // Higher score should come first.
         );
     }
     
+    // Adds a new blood test request
     public void addRequest(Person p) {
         allRequests.add(p);
         priorityQueue.offer(p);
     }
     
+    //Retrieves the next test request from the priority queue
     public Person getNextTest() {
         return priorityQueue.peek();
     }
@@ -47,11 +52,12 @@ public class Scheduler {
         noShowQueue.offer(p);
     }
     
-    // recursive method to print all test requests.
+    // Recursive method to print all test requests.
     public void printRequestsRecursively() {
         printRequestsRecursively(0);
     }
     
+    // Helper method for recursive printing
     private void printRequestsRecursively(int index) {
         if (index >= allRequests.size()) {
             return;
@@ -60,10 +66,12 @@ public class Scheduler {
         printRequestsRecursively(index + 1);
     }
     
+    // Returns the list of all blood test requests
     public List<Person> getAllRequests() {
         return allRequests;
     }
     
+    // Returns the deque containing the last 5 no-shows
     public Deque<Person> getNoShowQueue() {
         return noShowQueue;
     }

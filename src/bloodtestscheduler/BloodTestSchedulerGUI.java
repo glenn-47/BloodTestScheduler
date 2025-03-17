@@ -15,7 +15,7 @@ import java.awt.event.*;
 
 public class BloodTestSchedulerGUI extends javax.swing.JFrame {
     
-    // Instance of your Scheduler for business logic.
+    // Instance of Scheduler for business logic.
     private final Scheduler scheduler = new Scheduler();
 
     /**
@@ -48,7 +48,7 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
     scheduler.addRequest(newRequest);
     txtAreaDisplay.append("Added: " + newRequest + "\n");
 
-    // Optionally clear the fields after adding.
+    // clear the fields after adding.
     txtName.setText("");
     txtGpDetails.setText("");
     spinnerAge.setValue(30);
@@ -67,7 +67,7 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
     
     // Method to mark the next person as a no-show.
     private void markNoShow() {
-        // For example, remove the next person from the priority queue and mark as no-show.
+        // removes the next person from the priority queue and mark as no-show.
         Person noShowPerson = scheduler.scheduleNext();
         if (noShowPerson != null) {
             scheduler.markNoShow(noShowPerson);

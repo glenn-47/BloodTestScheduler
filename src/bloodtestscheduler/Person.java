@@ -22,27 +22,33 @@ public class Person implements Schedulable {
         this.age = age;
         this.fromHospitalWard = fromHospitalWard;
     }
-
+    
+    // Getter for the person's name
     public String getName() {
         return name;
     }
     
+    // Getter for the priority level
     public Priority getPriority() {
         return priority;
     }
     
+    // Getter for the GP details
     public String getGpDetails() {
         return gpDetails;
     }
     
+    // Getter for the person's age
     public int getAge() {
         return age;
     }
     
+    // Checks if the person is coming from a hospital ward
     public boolean isFromHospitalWard() {
         return fromHospitalWard;
     }
     
+    // Computes and returns the priority score for this person
     @Override
     public int getPriorityScore() {
         int score = priority.getValue() * 100;
@@ -53,6 +59,7 @@ public class Person implements Schedulable {
         return score;
     }
     
+    // Returns a string representation of the Person object
     @Override
     public String toString() {
         return name + " (" + priority + ", Age: " + age + ", Ward: " + fromHospitalWard + ")";
