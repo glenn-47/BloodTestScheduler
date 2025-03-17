@@ -12,6 +12,7 @@ package bloodtestscheduler;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Deque;
 
 public class BloodTestSchedulerGUI extends javax.swing.JFrame {
     
@@ -102,6 +103,7 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaDisplay = new javax.swing.JTextArea();
         spinnerAge = new javax.swing.JSpinner();
+        btnShowNoShows = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -142,19 +144,19 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
         txtAreaDisplay.setRows(5);
         jScrollPane2.setViewportView(txtAreaDisplay);
 
+        btnShowNoShows.setText("Show Last 5 No Shows");
+        btnShowNoShows.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowNoShowsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(btnAdd)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMarkNoShow))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(78, 78, 78)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -180,7 +182,17 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(chkHospitalWard)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(btnAdd)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnMarkNoShow))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(btnShowNoShows)))
                 .addContainerGap(89, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -214,7 +226,9 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
                     .addComponent(btnAdd)
                     .addComponent(btnNext)
                     .addComponent(btnMarkNoShow))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnShowNoShows)
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,6 +261,21 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         showNextPerson();
     }//GEN-LAST:event_btnNextActionPerformed
+
+    private void btnShowNoShowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowNoShowsActionPerformed
+        // TODO add your handling code here:
+        // Retrieve the no-show queue from the scheduler.
+        Deque<Person> noShows = scheduler.getNoShowQueue();
+        if (noShows.isEmpty()) {
+            txtAreaDisplay.append("No no-shows recorded.\n");
+        } else {
+            txtAreaDisplay.append("Last 5 No-Shows:\n");
+            // Loop through each Person in the no-show queue and display their details.
+            for (Person p : noShows) {
+                txtAreaDisplay.append(p.toString() + "\n");
+            }
+        }
+    }//GEN-LAST:event_btnShowNoShowsActionPerformed
 
     
     /**
@@ -286,6 +315,7 @@ public class BloodTestSchedulerGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnMarkNoShow;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnShowNoShows;
     private javax.swing.JCheckBox chkHospitalWard;
     private javax.swing.JComboBox<Priority> cmbPriority;
     private javax.swing.JLabel jLabel1;
